@@ -16,9 +16,8 @@ export class ProductDto {
   @IsNotEmpty()
   description: string;
 
-  @IsInt()
-  @IsNotEmpty()
-  quantity: number;
+  @IsString()
+  boughtUserId?: boolean;
 
   @IsNumber()
   @IsNotEmpty()

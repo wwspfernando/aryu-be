@@ -1,4 +1,38 @@
+import { CartDto } from './../../../carts/dto/cart.dto/cart.dto';
+import { User } from './../../interfaces/user.interface';
+import { UsersRepositoryService } from './../../../../db/repositories/users.repository/users.repository.service';
 import { Injectable } from '@nestjs/common';
+import { CartsService } from 'src/api/carts/services/carts/carts.service';
 
 @Injectable()
-export class UsersService {}
+export class UsersService {
+  constructor(
+    private readonly UserRepository: UsersRepositoryService,
+    private readonly cartsService: CartsService,
+  ) {}
+
+  findAll(): Promise<User[]> {
+    return this.UserRepository.findAll();
+  }
+
+  async findOne(id: string): Promise<User> {
+    return this.UserRepository.findOne(id);
+  }
+
+  async create(User: User): Promise<User> {
+    const user = await this.UserRepository.create(User);
+    const cart = new CartDto();
+    cart.userId = user.id;
+    // this.cartsService.create(cart);
+
+    return user;
+  }
+
+  async delete(id: string): Promise<User> {
+    return this.UserRepository.delete(id);
+  }
+
+  async update(id: string, User: User): Promise<User> {
+    return this.UserRepository.update(id, User);
+  }
+}

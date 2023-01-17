@@ -1,5 +1,5 @@
-import { IsNotEmpty, IsString } from 'class-validator';
-import { IsArray, IsNumber } from 'class-validator/types/decorator/decorators';
+import { IsNotEmpty, IsString, IsArray, IsNumber } from 'class-validator';
+
 import { ProductDto } from 'src/api/products/dto/product.dto/product.dto';
 
 export class CartDto {
@@ -16,4 +16,8 @@ export class CartDto {
   @IsNumber()
   @IsNotEmpty()
   total: number;
+
+  constructor() {
+    this.total = 0;
+  }
 }

@@ -32,4 +32,16 @@ export class ProductsRepositoryService {
       new: true,
     });
   }
+
+  async buyProduct(productId: string, userId: string): Promise<Product> {
+    await this.productModel.updateOne(
+      { id: productId },
+      { boughtUserId: userId },
+    );
+    return await this.findOne(productId);
+  }
+
+  async getProductsByBoughtId(userId: string): Promise<Product[]> {
+    return await this.productModel.findOne({ boughtUserId: userId });
+  }
 }
