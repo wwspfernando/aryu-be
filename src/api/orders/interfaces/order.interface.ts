@@ -1,1 +1,4 @@
-export interface Order {}
+export interface Order {
+  id: string;
+  cartId: string;
+}
