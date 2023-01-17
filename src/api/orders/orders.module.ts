@@ -1,3 +1,4 @@
+import { OrdersRepositoryService } from './../../db/repositories/orders.repository/orders.repository.service';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import OrdersSchema from 'src/db/schemas/orders.schema';
@@ -9,6 +10,6 @@ import { OrdersService } from './services/orders/orders.service';
     MongooseModule.forFeature([{ name: 'Orders', schema: OrdersSchema }]),
   ],
   controllers: [OrdersController],
-  providers: [OrdersService],
+  providers: [OrdersService, OrdersRepositoryService],
 })
 export class OrdersModule {}
