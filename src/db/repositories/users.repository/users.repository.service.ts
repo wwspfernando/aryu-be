@@ -6,7 +6,7 @@ import { User } from 'src/api/users/interfaces/user.interface';
 @Injectable()
 export class UsersRepositoryService {
   constructor(
-    @InjectModel('User')
+    @InjectModel('Users')
     private readonly userModel: Model<User>,
   ) {}
 

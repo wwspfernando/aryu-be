@@ -6,7 +6,7 @@ import { Product } from 'src/api/products/interfaces/product.interface';
 @Injectable()
 export class ProductsRepositoryService {
   constructor(
-    @InjectModel('Product')
+    @InjectModel('Products')
     private readonly productModel: Model<Product>,
   ) {}
 

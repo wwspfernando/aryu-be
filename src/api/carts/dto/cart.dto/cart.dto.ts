@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 import { IsArray, IsNumber } from 'class-validator/types/decorator/decorators';
-import { ProductDto } from './../../../product/dto/product.dto/product.dto';
+import { ProductDto } from 'src/api/products/dto/product.dto/product.dto';
 
 export class CartDto {
   id: string;

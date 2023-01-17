@@ -1,5 +1,5 @@
-import { Product } from './../../api/product/interfaces/product.interface';
 import * as mongoose from 'mongoose';
+import { Product } from 'src/api/products/interfaces/product.interface';
 
 const CartsSchema = new mongoose.Schema({
   userId: {

@@ -1,4 +1,5 @@
-import { Product } from './../../product/interfaces/product.interface';
+import { Product } from 'src/api/products/interfaces/product.interface';
+
 export interface Cart {
   id: string;
   userId: string;
