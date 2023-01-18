@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Product } from 'src/api/products/interfaces/product.interface';
@@ -34,14 +34,27 @@ export class ProductsRepositoryService {
   }
 
   async buyProduct(productId: string, userId: string): Promise<Product> {
-    await this.productModel.updateOne(
-      { id: productId },
+    console.log(productId, userId);
+
+    const boughtProduct = await this.productModel.findOne({
+      _id: productId,
+      boughtUserId: userId,
+    });
+
+    console.log(boughtProduct);
+
+    if (boughtProduct) {
+      throw new ForbiddenException('Product already bought');
+    }
+
+    await this.productModel.findOneAndUpdate(
+      { _id: productId },
       { boughtUserId: userId },
     );
     return await this.findOne(productId);
   }
 
   async getProductsByBoughtId(userId: string): Promise<Product[]> {
-    return await this.productModel.findOne({ boughtUserId: userId });
+    return await this.productModel.find({ boughtUserId: userId });
   }
 }

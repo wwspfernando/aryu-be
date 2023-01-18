@@ -47,7 +47,9 @@ export class ProductsController {
   }
 
   @Get('boughtProducts/:userId')
-  async getProductsByBoughtId(userId: string): Promise<Product[]> {
+  async getProductsByBoughtId(
+    @Param('userId') userId: string,
+  ): Promise<Product[]> {
     return this.productsService.getProductsByBoughtId(userId);
   }
 
