@@ -24,7 +24,6 @@ export class UsersService {
     const cart = new CartDto();
     cart.userId = user.id;
     // this.cartsService.create(cart);
-
     return user;
   }
 
@@ -34,5 +33,9 @@ export class UsersService {
 
   async update(id: string, User: User): Promise<User> {
     return this.UserRepository.update(id, User);
+  }
+
+  async authenticateUser(email: string, password: string): Promise<User> {
+    return this.UserRepository.authenticateUser(email, password);
   }
 }

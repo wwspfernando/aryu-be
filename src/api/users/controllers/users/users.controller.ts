@@ -31,6 +31,13 @@ export class UserController {
     return await this.userService.findOne(id);
   }
 
+  @Post('authenticate')
+  async authenticateUser(
+    @Body() obj: { email: string; password: string },
+  ): Promise<User> {
+    return await this.userService.authenticateUser(obj.email, obj.password);
+  }
+
   @Put(':id')
   async update(
     @Param('id') id: string,

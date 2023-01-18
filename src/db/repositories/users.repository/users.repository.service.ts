@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'src/api/users/interfaces/user.interface';
@@ -19,6 +19,14 @@ export class UsersRepositoryService {
   }
 
   async create(item: User): Promise<User> {
+    const user = await this.userModel.findOne({
+      email: item.email,
+    });
+
+    if (user) {
+      throw new ForbiddenException('Email already taken');
+    }
+
     const newItem = new this.userModel(item);
     return await newItem.save();
   }
@@ -31,5 +39,16 @@ export class UsersRepositoryService {
     return await this.userModel.findByIdAndUpdate(id, user, {
       new: true,
     });
+  }
+
+  async authenticateUser(email: string, password: string): Promise<User> {
+    const user = await this.userModel.findOne({
+      email: email,
+      password: password,
+    });
+    if (!user) {
+      throw new ForbiddenException('Error: No user found');
+    }
+    return user;
   }
 }
