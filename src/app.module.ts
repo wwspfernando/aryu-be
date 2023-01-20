@@ -8,12 +8,20 @@ import { ProductsModule } from './api/products/product.module';
 import { OrdersModule } from './api/orders/orders.module';
 import { CartsModule } from './api/carts/carts.module';
 import { MongooseModule } from '@nestjs/mongoose';
-
-import * as config from './config/keys';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(config.default.mongoURI),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get('MONGODB_URI'),
+      }),
+      inject: [ConfigService],
+    }),
     UsersModule,
     ProductsModule,
     OrdersModule,
